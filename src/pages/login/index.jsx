@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,6 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 const Login = () => {
   const defaultTheme = createTheme();
   const [isPersist, setIsPersist] = useState(
@@ -107,6 +107,9 @@ const Login = () => {
                   color="primary"
                   checked={isPersist}
                   onChange={persistHandlder}
+                  sx={{
+                    fontFamily: "IranYekan",
+                  }}
                 />
               }
               label="مرا به خاطر بسپار"
@@ -122,7 +125,7 @@ const Login = () => {
             <Grid container>
               <Grid item xs>
                 <Link
-                  href="/forgetPassword"
+                  to="/forgetPassword"
                   variant="body2"
                   sx={{
                     fontFamily: "IranYekan",
@@ -133,13 +136,13 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <Link
-                  href="/register"
+                  to="/register"
                   variant="body2"
                   sx={{
                     fontFamily: "IranYekan",
                   }}
                 >
-                    ایجاد کاربری جدید.
+                    ایجاد حساب کاربری جدید؟
                 </Link>
               </Grid>
             </Grid>

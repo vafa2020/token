@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,7 +14,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Register = () => {
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
   const defaultTheme = createTheme();
 
   const UserName = useRef(null);
@@ -115,18 +119,18 @@ const Register = () => {
             <Grid container>
               <Grid item xs>
                 <Link
-                  href="/forgetPassword"
+                  to="/forgetPassword"
                   variant="body2"
                   sx={{
                     fontFamily: "IranYekan",
                   }}
                 >
-                  فراموشی گذرواژه ؟
+                  فراموشی گذر واژه ؟
                 </Link>
               </Grid>
               <Grid item>
                 <Link
-                  href="/login"
+                  to="/login"
                   variant="body2"
                   sx={{
                     fontFamily: "IranYekan",
