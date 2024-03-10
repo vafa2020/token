@@ -16,25 +16,21 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 const Register = () => {
   const defaultTheme = createTheme();
-  const [isPersist, setIsPersist] = useState(
-    JSON.parse(localStorage.getItem("persist")) || false
-  );
+
   const UserName = useRef(null);
   const Email = useRef(null);
   const Password = useRef(null);
 
-  useEffect(() => {
-    localStorage.setItem("persist", JSON.stringify(isPersist));
-  }, [isPersist]);
+
+
   const handleSubmit = (event) => {
-    event.preventDefault()
-  };
-  const persistHandlder = ({ target }) => {
-    if (target.checked) {
-      setIsPersist(true);
-    } else {
-      setIsPersist(false);
-    }
+    event.preventDefault();
+    const UserInfo = {
+      UserName: UserName?.current?.value,
+      Email: Email?.current?.value,
+      Password: Password?.current?.value,
+    };
+    // console.log("UserInfo", UserInfo);
   };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -77,7 +73,7 @@ const Register = () => {
               sx={{
                 fontFamily: "IranYekan",
               }}
-              ref={UserName}
+              inputRef={UserName}
             />
             <TextField
               margin="normal"
@@ -90,7 +86,7 @@ const Register = () => {
               sx={{
                 fontFamily: "IranYekan",
               }}
-              ref={Email}
+              inputRef={Email}
             />
 
             <TextField
@@ -105,21 +101,9 @@ const Register = () => {
               sx={{
                 fontFamily: "IranYekan",
               }}
-              ref={Password}
+              inputRef={Password}
             />
-            <FormControlLabel
-              sx={{
-                fontFamily: "IranYekan",
-              }}
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={isPersist}
-                  onChange={persistHandlder}
-                />
-              }
-              label="مرا به خاطر بسپار"
-            />
+    
             <Button
               type="submit"
               fullWidth
