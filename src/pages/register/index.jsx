@@ -12,15 +12,29 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
 const Register = () => {
   const defaultTheme = createTheme();
+  const [isPersist, setIsPersist] = useState(
+    JSON.parse(localStorage.getItem("persist")) || false
+  );
+  const UserName = useRef(null);
+  const Email = useRef(null);
+  const Password = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem("persist", JSON.stringify(isPersist));
+  }, [isPersist]);
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    event.preventDefault()
+  };
+  const persistHandlder = ({ target }) => {
+    if (target.checked) {
+      setIsPersist(true);
+    } else {
+      setIsPersist(false);
+    }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -52,38 +66,58 @@ const Register = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-              <TextField
-            
-                dir="rtl"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="ایمیل"
-                name="email"
-                autoFocus
-                sx={{
-                  fontFamily: "IranYekan",
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="گذرواژه"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                sx={{
-                  fontFamily: "IranYekan",
-                }}
-              />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="UserName"
+              label="نام کاربری"
+              name="UserName"
+              autoFocus
+              sx={{
+                fontFamily: "IranYekan",
+              }}
+              ref={UserName}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="Email"
+              label="ایمیل"
+              name="Email"
+              autoFocus
+              sx={{
+                fontFamily: "IranYekan",
+              }}
+              ref={Email}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="Password"
+              label="گذرواژه"
+              type="password"
+              id="Password"
+              autoComplete="current-password"
+              sx={{
+                fontFamily: "IranYekan",
+              }}
+              ref={Password}
+            />
             <FormControlLabel
               sx={{
                 fontFamily: "IranYekan",
               }}
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={isPersist}
+                  onChange={persistHandlder}
+                />
+              }
               label="مرا به خاطر بسپار"
             />
             <Button
